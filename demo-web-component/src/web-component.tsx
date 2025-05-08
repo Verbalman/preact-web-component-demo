@@ -2,36 +2,39 @@ import { h, render } from 'preact';
 import { App } from './App';
 import css from './style.css?inline';
 
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(css);
+
 class DemoWebComponent extends HTMLElement {
-	constructor() {
-		super();
-		this.attachShadow({ mode: 'open' });
-	}
+  constructor() {
+    super();
+    const shadow = this.attachShadow({mode: 'open'});
+    shadow.adoptedStyleSheets = [sheet];
+  }
 
-	connectedCallback() {
-		this.shadowRoot.innerHTML = `<style>${css}</style>`;
-		this.render();
-	}
+  connectedCallback() {
+    this.render();
+  }
 
-	static get observedAttributes() {
-		return ['displayName', 'startCount'];
-	}
+  static get observedAttributes() {
+    return ['displayName', 'startCount'];
+  }
 
-	attributeChangedCallback() {
-		this.render();
-	}
+  attributeChangedCallback() {
+    this.render();
+  }
 
-	render() {
-		const name = this.getAttribute('displayName') || 'Test';
-		const count = this.getAttribute('startCount') || 0;
-		render(
+  render() {
+    const name = this.getAttribute('displayName') || 'Test';
+    const count = this.getAttribute('startCount') || 0;
+    render(
       <App
         displayName={name}
         startCount={count}
         onChangeCount={(value) => {
           this.dispatchEvent(
             new CustomEvent('onChangeCount', {
-              detail: { count: value },
+              detail: {count: value},
               bubbles: true,
               composed: true,
             })
@@ -40,7 +43,7 @@ class DemoWebComponent extends HTMLElement {
       />,
       this.shadowRoot
     );
-	}
+  }
 }
 
 customElements.define('demo-web-component', DemoWebComponent);
