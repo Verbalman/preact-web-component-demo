@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Demo Web Component</title>
+</head>
+<body>
+
+<demo-web-component displayName="Oleg"></demo-web-component>
+
+<script type="module" src="demo-web-component.js"></script>
+
+<script>
+  const counter = document.querySelector('demo-web-component');
+
+  counter.addEventListener('onChangeCount', (event) => {
+    console.log('Counter clicked!', event.detail.count);
+  });
+</script>
+</body>
+</html>
