@@ -22,7 +22,6 @@ class DemoWebComponent extends HTMLElement {
 	}
 
 	render() {
-    console.log(this.getAttribute('displayName'));
 		const name = this.getAttribute('displayName') || 'Test';
 		const count = this.getAttribute('startCount') || 0;
 		render(
