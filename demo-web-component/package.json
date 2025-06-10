@@ -7,6 +7,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@3dlook/camera": "^2.10.1",
 		"preact": "^10.25.3"
 	},
 	"devDependencies": {
