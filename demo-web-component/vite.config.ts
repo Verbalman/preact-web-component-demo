@@ -6,9 +6,9 @@ export default defineConfig({
 	plugins: [preact()],
 	build: {
 		lib: {
-			entry: 'src/web-component.tsx',
-			name: 'DemoWebComponent',
-			fileName: 'demo-web-component'
+			entry: 'src/camera-web-component.tsx',
+			name: 'CameraWebComponent',
+			fileName: 'camera-web-component'
 		}
 	},
 	// assetsInclude: ['**/*.css']

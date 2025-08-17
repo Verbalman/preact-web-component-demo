@@ -1,6 +1,10 @@
 import { h, render } from 'preact';
 import Camera from '@3dlook/camera/src/Camera';
+import css from '@3dlook/camera/src/Camera.scss?inline';
 import { BoolFromString, isValidJSON } from "./camera-web-component.utils";
+
+const sheet = new CSSStyleSheet();
+sheet.replaceSync(css);
 
 interface Coordinates {
   betaX: number;
@@ -11,7 +15,8 @@ interface Coordinates {
 class CameraWebComponent extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    const shadow = this.attachShadow({ mode: 'open' });
+    shadow.adoptedStyleSheets = [sheet];
   }
 
   private _emitEvent(name: string, detail?: Record<string, unknown>) {
@@ -21,6 +26,8 @@ class CameraWebComponent extends HTMLElement {
       cancelable: true,
       detail,
     });
+
+    console.log("_emitEvent => : ", { name, detail });
 
     // Dispatch the event
     return this.dispatchEvent(event);
@@ -43,7 +50,7 @@ class CameraWebComponent extends HTMLElement {
   }
 
   render() {
-    const type = BoolFromString(this.getAttribute('type'));
+    const type = this.getAttribute('type');
     const isTableFlow = BoolFromString(this.getAttribute('isTableFlow'));
 
     const hardValidation = isValidJSON(this.getAttribute('hardValidation'))
