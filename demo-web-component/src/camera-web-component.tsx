@@ -1,7 +1,15 @@
 import { h, render } from 'preact';
-import Camera from '@3dlook/camera/src/Camera';
-import css from '@3dlook/camera/src/Camera.scss?inline';
+import Camera from '@3dlook-me/camera-rpv-client';
+import css from '@3dlook-me/camera-rpv-client/dist/style.css?inline';
 import { BoolFromString, isValidJSON } from "./camera-web-component.utils";
+
+declare module 'preact/jsx-runtime' {
+  namespace JSX {
+    interface IntrinsicElements {
+      'camera-web-component': JSX.HTMLAttributes<CameraWebComponent>;
+    }
+  }
+}
 
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(css);
@@ -26,8 +34,6 @@ class CameraWebComponent extends HTMLElement {
       cancelable: true,
       detail,
     });
-
-    console.log("_emitEvent => : ", { name, detail });
 
     // Dispatch the event
     return this.dispatchEvent(event);
@@ -68,7 +74,10 @@ class CameraWebComponent extends HTMLElement {
             hardValidation={hardValidation}
             disableTableFlow={() => this._emitEvent('disableTableFlow')}
             turnOffCamera={() => this._emitEvent('turnOffCamera')}
-            setDeviceCoordinates={(value: Coordinates) => this._emitEvent('setDeviceCoordinates', { value })}
+            onClickDone={() => this._emitEvent('onClickDone')}
+            isFrontPhotoPoseValidated={(value: boolean) => this._emitEvent('isFrontPhotoPoseValidated', { isFrontPhotoPoseValidated: value })}
+            isSidePhotoPoseValidated={(value: boolean) => this._emitEvent('isSidePhotoPoseValidated', { isSidePhotoPoseValidated: value })}
+            setDeviceCoordinates={(value: Coordinates) => this._emitEvent('setDeviceCoordinates', { ...value })}
           />)}
       </>,
       this.shadowRoot

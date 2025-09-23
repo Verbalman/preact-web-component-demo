@@ -6,16 +6,20 @@
 </head>
 <body>
 
-<demo-web-component displayName="Oleg"></demo-web-component>
+<!--<demo-web-component displayName="Oleg"></demo-web-component>-->
 
-<script type="module" src="demo-web-component.js"></script>
+<camera-web-component></camera-web-component>
+
+<!--<script type="module" src="demo-web-component.js"></script>-->
+
+<script type="module" src="camera-web-component.js"></script>
 
 <script>
-  const counter = document.querySelector('demo-web-component');
-
-  counter.addEventListener('onChangeCount', (event) => {
-    console.log('Counter clicked!', event.detail.count);
-  });
+  // const counter = document.querySelector('demo-web-component');
+  //
+  // counter.addEventListener('onChangeCount', (event) => {
+  //   console.log('Counter clicked!', event.detail.count);
+  // });
 </script>
 </body>
 </html>
